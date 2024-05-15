@@ -129,6 +129,7 @@ func httpTransport(option types.RegistryOptions) (*http.Transport, error) {
 	tr := http.DefaultTransport.(*http.Transport).Clone()
 	tr.DialContext = d.DialContext
 	tr.TLSClientConfig = &tls.Config{InsecureSkipVerify: option.Insecure}
+	tr.Proxy = http.ProxyFromEnvironment
 
 	if len(option.ClientCert) != 0 && len(option.ClientKey) != 0 {
 		cert, err := tls.X509KeyPair(option.ClientCert, option.ClientKey)
